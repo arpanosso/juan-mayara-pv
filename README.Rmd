@@ -23,7 +23,8 @@ library(tidyverse)
 
 ```{r}
 library(readxl)
-enzimas <- read_excel("data/enzimas.xlsx")
+enzimas <- read_excel("data/enzimas.xlsx") %>% 
+  mutate(Apx_log = log(Apx))
 head(enzimas)
 ```
 
