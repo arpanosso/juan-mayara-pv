@@ -16,6 +16,7 @@ knitr::opts_chunk$set(
 ## Carregando os pacotes necessários
 ```{r, message=FALSE, error=FALSE, warning=FALSE}
 library(ExpDes.pt)
+library(tidyverse)
 ```
 
 ## Entrada de dados
@@ -25,3 +26,70 @@ library(readxl)
 enzimas <- read_excel("data/enzimas.xlsx")
 head(enzimas)
 ```
+
+# Análise para Cultivar 3280
+
+```{r}
+c3280 <- enzimas %>% 
+  filter(Cultivar == 3280)
+for(i in  6:length(c3280)){
+  print("************ Análise de Variância ***************")
+  print(paste0("Variável: ",names(c3280[,i])))
+  print("*************************************************")
+  
+  print("--------Análise de resíduos---------")
+  trat <- c3280 %>%  pull(Trat)
+  y <- data.frame(c3280)[,i]
+  mod <- aov(y~as.factor(trat))
+  rs<-rstudent(mod)
+  hist(rs)
+  print(shapiro.test(rs))
+  
+  plot(y ~ as.factor(trat))
+  print(lawstat::levene.test(y,trat))
+  
+  print("---------Teste F da ANOVA -----------")
+  Estresse <- c3280$Estresse
+  Si <- c3280$Si
+  fat2.dic(Estresse,Si,y,
+           fac.names = c("Estr","Si"))
+  cat("\n")
+}
+```
+
+
+
+
+# Análise para Cultivar 4467
+
+```{r}
+c4467 <- enzimas %>% 
+  filter(Cultivar == 4467)
+for(i in  6:length(c3280)){
+  print("************ Análise de Variância ***************")
+  print(paste0("Variável: ",names(c4467[,i])))
+  print("*************************************************")
+  
+  print("--------Análise de resíduos---------")
+  trat <- c4467 %>%  pull(Trat)
+  y <- data.frame(c4467)[,i]
+  mod <- aov(y~as.factor(trat))
+  rs<-rstudent(mod)
+  hist(rs)
+  print(shapiro.test(rs))
+  
+  plot(y ~ as.factor(trat))
+  print(lawstat::levene.test(y,trat))
+  
+  print("---------Teste F da ANOVA -----------")
+  Estresse <- c4467$Estresse
+  Si <- c4467$Si
+  fat2.dic(Estresse,Si,y,
+           fac.names = c("Estr","Si"))
+  cat("\n")
+}
+```
+
+
+
+
