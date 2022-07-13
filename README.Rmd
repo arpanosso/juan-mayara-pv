@@ -1,0 +1,27 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+# Análise Juan e Mayara - Enzimas, Estresse e Si.
+
+## Carregando os pacotes necessários
+```{r, message=FALSE, error=FALSE, warning=FALSE}
+library(ExpDes.pt)
+```
+
+## Entrada de dados
+
+```{r}
+library(readxl)
+enzimas <- read_excel("data/enzimas.xlsx")
+head(enzimas)
+```
